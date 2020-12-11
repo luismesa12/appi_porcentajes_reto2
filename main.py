@@ -40,9 +40,10 @@ async def computar_porcentajes(diasportemporada: DiasTemporada, porcentajebajame
 
 @api.get("/porcentaje/anual/{anio}")
 async def obtener_porcentaje_anual(anio: int):
-    try:
-        for dic in porcentajeTemporada:
-            if dic.anio ==anio:
-                return dic
-    except:
+    check = False
+    for dic in porcentajeTemporada:
+        if dic.anio ==anio:
+            check = True
+            return dic
+    if check == False:
         raise HTTPException(status_code=404, detail="Año No Encontrado")
